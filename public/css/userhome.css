@@ -1,0 +1,21 @@
+body{
+    background: url(/images/bg.jpg);
+}
+.body1{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+}
+.txt{
+    color: white;
+    padding-top: 120px;
+    margin-bottom: 130px;
+}
+form{
+    margin-top: 50px;
+    height: 60vh;
+}
+.btn1{
+    margin-bottom: 200px;
+}
