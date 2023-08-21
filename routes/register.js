@@ -1,9 +1,15 @@
 const express=require('express')
 const router=express.Router()
 const collection = require('../mongodb')
+const session = require('express-session')
 
 router.get('/',(req,res)=>{
-    res.render('register')
+    const emailexist =req.session.emailexist
+    req.session.emailexist=null
+
+    const userregistered=req.session.userregistered
+    req.session.userregistered=null
+    res.render('register',{emailexist,userregistered})
 })
 
 router.post('/',async(req,res)=>{
@@ -11,8 +17,12 @@ router.post('/',async(req,res)=>{
     try{
         const check=await collection.findOne({email:req.body.email})
             if(check.email===req.body.email) {
-                res.render('register',{err:true})
-            }  
+                req.session.emailexist={
+                    type:'danger',
+                    message:'email already exist'
+                }
+                res.redirect('/register')
+            }
     }
 
     catch{
@@ -23,7 +33,11 @@ router.post('/',async(req,res)=>{
         }
 
         await collection.insertMany([data]);
-        res.redirect('/')
+        req.session.userregistered={
+            type:'success',
+            message:'User Registered'
+        } 
+        res.redirect('/register')
     }  
 })
 

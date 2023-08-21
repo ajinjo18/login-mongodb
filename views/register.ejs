@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/register.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
@@ -16,26 +19,40 @@
             <div class="card   p-4" style="border-radius: 15px; background-color: rgb(225, 220, 220);">
               <div class="card-body p-auto" style="border-radius: 10px;">
                 <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-  
-                <% if (locals.err){ %>
-                  <div  style="color: red; position: relative; margin-top: -40px;" class="alert"><p><b>email already exist</b></p></div>
+
+
+                <% if(userregistered) { %>
+                  <div id="userregistered" class="alert alert-dismissible fade show alert-<%= userregistered.type %>" role="alert">
+                      <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
+                      <strong><%= userregistered.message %></strong>
+                  </div>
+                <% } %>
+
+                <% if(emailexist) { %>
+                  <div id="emailexist" class="alert alert-dismissible fade show alert-<%= emailexist.type %>" role="alert">
+                      <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
+                      <strong><%= emailexist.message %></strong>
+                  </div>
                 <% } %>
   
-                <form method="post" action="/register">
+                <form id="form" method="post" action="/register">
                     
                   <div class="form-outline mb-4">
-                    <input type="text" id="form3Example1cg" class="form-control form-control-lg" name="name"/>
                     <label class="form-label" for="form3Example1cg">Your Name</label>
+                    <input type="text" id="username" class="form-control form-control-lg" name="name"/>
+                    <div class="error"></div>
                   </div>
   
                   <div class="form-outline mb-4">
-                    <input type="email" id="form3Example3cg" class="form-control form-control-lg" name="email" />
                     <label class="form-label" for="form3Example3cg">Your Email</label>
+                    <input type="email" id="email" class="form-control form-control-lg" name="email" />
+                    <div class="error"></div>
                   </div>
   
                   <div class="form-outline mb-4">
-                    <input type="password" id="form3Example4cg" class="form-control form-control-lg" name="password" />
                     <label class="form-label" for="form3Example4cg">Password</label>
+                    <input type="password" id="password" class="form-control form-control-lg" name="password" />
+                    <div class="error"></div>
                   </div>
   
                   <div class="d-flex justify-content-center">
@@ -54,6 +71,23 @@
     </div>
   </section>
 
+  <script>
+    setTimeout(function() {
+        const alertDiv = document.getElementById('userregistered');
+        if (alertDiv) {
+          alertDiv.remove();
+        }
+      }, 5000);
+
+      setTimeout(function() {
+        const alertDiv = document.getElementById('emailexist');
+        if (alertDiv) {
+          alertDiv.remove();
+        }
+      }, 5000);
+  </script>
+
+  <script defer src="js/registervalidation.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -96,3 +96,17 @@
     background-size: cover;
     height: calc(100vh - 80px);
   }
+
+  .mb-3.success input {
+    border-color: #09c372;
+}
+
+.mb-3.error input {
+    border-color: #ff3860;
+}
+
+.mb-3 .error {
+    color: #ff3860;
+    font-size: 15px;
+    height: 13px;
+}
